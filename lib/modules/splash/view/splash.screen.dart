@@ -1,6 +1,10 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:linkedin_clone/common/assets/assets.dart';
 import 'package:linkedin_clone/common/assets/colors.dart';
+import 'package:linkedin_clone/modules/home/view/home.screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,6 +14,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 2), () {
+      Navigator.push(
+          context, CupertinoPageRoute(builder: (context) => HomeScreen()));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
