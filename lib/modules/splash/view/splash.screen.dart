@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:linkedin_clone/common/assets/assets.dart';
-import 'package:linkedin_clone/common/assets/colors.dart';
+import 'package:linkedin_clone/common/color/colors.dart';
 import 'package:linkedin_clone/modules/home/view/home.screen.dart';
 
 class SplashScreen extends StatefulWidget {
