@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:linkedin_clone/common/assets/assets.dart';
 import 'package:linkedin_clone/common/color/colors.dart';
 import 'package:linkedin_clone/common/style/style.dart';
 import 'package:linkedin_clone/modules/home/controller/post.controller.dart';
 import 'package:linkedin_clone/modules/home/model/post.model.dart';
+import 'package:linkedin_clone/modules/messages/view/message-list.screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -47,14 +50,23 @@ class _HomeScreenState extends State<HomeScreen> {
   _postUi(PostModel postData) {
     return Container(
       color: Colors.white,
-      child: Column(
+      child: Stack(
         children: [
-          20.height,
-          _post1stPart(postData),
-          _post2Part(),
-          10.height,
-          _post3Part(),
-          15.height,
+          Column(
+            children: [
+              20.height,
+              _post1stPart(postData),
+              _post2Part(),
+              10.height,
+              _post3Part(),
+              15.height,
+            ],
+          ),
+          Positioned(
+            top: 10,
+            right: 15,
+            child: Icon(Icons.more_vert),
+          )
         ],
       ),
     );
@@ -144,6 +156,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  _postImage() {
+    return Image.network(
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZIK_dzjnmoFopN-Tti8pDSgDA3R8NvHYnAg&s',
+      fit: BoxFit.cover,
+      width: context.width(),
+    );
+  }
+
   _post1stPart(PostModel postData) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -222,11 +242,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           20.height,
+          _postImage(),
+          10.height,
           Row(
             children: [
-              Icon(Icons.linked_camera_sharp),
+              Image.asset(AppAssets.likes),
+              Image.asset(AppAssets.bulb),
+              Image.asset(AppAssets.clap),
               Text(
-                postData.likes.toString(),
+                ' ' + postData.likes.toString(),
                 style: AppStyle.primary(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
@@ -296,8 +320,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Icon(
-            Icons.chat_bubble,
+          IconButton(
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => MessagesListScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.chat_bubble),
             color: AppColors.darkGrey,
           ),
         ],
