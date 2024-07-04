@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _sKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -31,11 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
     List<PostModel> posts =
         context.select((PostController value) => value.post);
     return Scaffold(
+      key: _sKey,
       backgroundColor: AppColors.bgColor,
+      drawer: _drawer(),
       appBar: _appBar(),
       body: ListView.separated(
         padding: const EdgeInsets.only(top: 10.0),
-        separatorBuilder: (context, index) => SizedBox(
+        separatorBuilder: (context, index) => const SizedBox(
           height: 10.0,
         ),
         itemBuilder: (context, index) {
@@ -44,6 +47,306 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: posts.length,
       ),
       bottomNavigationBar: _bottomBar(),
+    );
+  }
+
+  _drawer() {
+    return Drawer(
+      width: context.width() * 0.87,
+      backgroundColor: Colors.white,
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                // height: 204,
+                color: AppColors.lightBg,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 40, 20, 32),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 25,
+                            child: ClipRRect(
+                              borderRadius: radius(50),
+                              child: Image.network(
+                                'https://i.pinimg.com/550x/c3/b5/c5/c3b5c5920634a9267ca6244b980f801f.jpg',
+                                fit: BoxFit.cover,
+                                width: 50,
+                              ),
+                            ),
+                          ),
+                          20.width,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Yuri Dud',
+                                style: AppStyle.primary(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'View Profile',
+                                    style: AppStyle.primary(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.lightBlue),
+                                  ),
+                                  10.width,
+                                  Container(
+                                    height: 3,
+                                    width: 3,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.black),
+                                  ),
+                                  10.width,
+                                  Text(
+                                    'Settings',
+                                    style: AppStyle.primary(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.lightBlue),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.close,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      thickness: 2,
+                      color: AppColors.lightGrey,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 30, 0, 25),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 24,
+                            width: 24,
+                            child: const Placeholder(),
+                          ),
+                          18.width,
+                          Text(
+                            'Access My Premium',
+                            style: AppStyle.primary(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
+                child: Row(
+                  children: [
+                    Text(
+                      'Recent',
+                      style: AppStyle.primary(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 0, 20),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      child: Icon(LineIcons.users),
+                    ),
+                    18.width,
+                    Text(
+                      'Premium Career Group',
+                      style: AppStyle.primary(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 0, 30),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      child: Icon(LineIcons.users),
+                    ),
+                    18.width,
+                    Text(
+                      'Jobs in Belarus',
+                      style: AppStyle.primary(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                thickness: 2,
+                color: AppColors.lightGrey,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
+                child: Row(
+                  children: [
+                    Text(
+                      'Groups',
+                      style: AppStyle.primary(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.lightBlue),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 0, 20),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      child: Icon(LineIcons.users),
+                    ),
+                    18.width,
+                    Text(
+                      'Premium Career Group',
+                      style: AppStyle.primary(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 0, 30),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      child: Icon(LineIcons.users),
+                    ),
+                    18.width,
+                    Text(
+                      'Jobs in Belarus',
+                      style: AppStyle.primary(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                thickness: 2,
+                color: AppColors.lightGrey,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
+                child: Row(
+                  children: [
+                    Text(
+                      'Events',
+                      style: AppStyle.primary(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.lightBlue),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 0, 20),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 24,
+                      child: Icon(Icons.add),
+                    ),
+                    18.width,
+                    Text(
+                      'Create Event',
+                      style: AppStyle.primary(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                thickness: 2,
+                color: AppColors.lightGrey,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
+                child: Row(
+                  children: [
+                    Text(
+                      'Followed Hashtags',
+                      style: AppStyle.primary(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.lightBlue),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                thickness: 2,
+                color: AppColors.lightGrey,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
+                child: Row(
+                  children: [
+                    Text(
+                      'Dickover more',
+                      style: AppStyle.primary(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.lightBlue),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -273,18 +576,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   BottomNavigationBar _bottomBar() {
     return BottomNavigationBar(
+      fixedColor: Colors.black,
+      showUnselectedLabels: true,
+      unselectedItemColor: AppColors.grey,
       items: [
         BottomNavigationBarItem(
+          backgroundColor: Colors.white,
           label: "Home",
-          icon: Icon(
-            Icons.home,
-          ),
+          icon: Image.asset(AppAssets.home),
         ),
         BottomNavigationBarItem(
-          label: "Account",
-          icon: Icon(
-            Icons.person,
-          ),
+          label: "My Network",
+          icon: Image.asset(AppAssets.myNetwork),
+        ),
+        BottomNavigationBarItem(
+          label: "Post",
+          icon: Image.asset(AppAssets.post),
+        ),
+        BottomNavigationBarItem(
+          label: "Notification",
+          icon: Image.asset(AppAssets.notification),
+        ),
+        BottomNavigationBarItem(
+          label: "Jobs",
+          icon: Image.asset(AppAssets.jobs),
         ),
       ],
     );
@@ -292,13 +607,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar _appBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CircleAvatar(
-            radius: 21,
-            child: Container(
-                child: Image.network("https://avatar.iran.liara.run/public")),
+          InkWell(
+            onTap: () {
+              _sKey.currentState?.openDrawer();
+            },
+            child: CircleAvatar(
+              radius: 21,
+              child: Container(
+                  child: Image.network("https://avatar.iran.liara.run/public")),
+            ),
           ),
           Expanded(
             child: Padding(
