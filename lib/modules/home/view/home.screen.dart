@@ -4,9 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:linkedin_clone/common/assets/assets.dart';
 import 'package:linkedin_clone/common/color/colors.dart';
 import 'package:linkedin_clone/common/style/style.dart';
+import 'package:linkedin_clone/common/widgets/appbar.dart';
 import 'package:linkedin_clone/modules/home/controller/post.controller.dart';
 import 'package:linkedin_clone/modules/home/model/post.model.dart';
 import 'package:linkedin_clone/modules/messages/view/message-list.screen.dart';
+import 'package:linkedin_clone/modules/my%20networks/view/my-networks.screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _sKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -29,24 +32,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<PostModel> posts =
-        context.select((PostController value) => value.post);
     return Scaffold(
       key: _sKey,
       backgroundColor: AppColors.bgColor,
       drawer: _drawer(),
       appBar: _appBar(),
-      body: ListView.separated(
-        padding: const EdgeInsets.only(top: 10.0),
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 10.0,
-        ),
-        itemBuilder: (context, index) {
-          return _postUi(posts[index]);
-        },
-        itemCount: posts.length,
+      body: _postScreen(),
+    );
+  }
+
+  _postScreen() {
+    List<PostModel> posts =
+        context.select((PostController value) => value.post);
+    return ListView.separated(
+      padding: const EdgeInsets.only(top: 10.0),
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 10.0,
       ),
-      bottomNavigationBar: _bottomBar(),
+      itemBuilder: (context, index) {
+        return _postUi(posts[index]);
+      },
+      itemCount: posts.length,
     );
   }
 
@@ -574,89 +580,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  BottomNavigationBar _bottomBar() {
-    return BottomNavigationBar(
-      fixedColor: Colors.black,
-      showUnselectedLabels: true,
-      unselectedItemColor: AppColors.grey,
-      items: [
-        BottomNavigationBarItem(
-          backgroundColor: Colors.white,
-          label: "Home",
-          icon: Image.asset(AppAssets.home),
-        ),
-        BottomNavigationBarItem(
-          label: "My Network",
-          icon: Image.asset(AppAssets.myNetwork),
-        ),
-        BottomNavigationBarItem(
-          label: "Post",
-          icon: Image.asset(AppAssets.post),
-        ),
-        BottomNavigationBarItem(
-          label: "Notification",
-          icon: Image.asset(AppAssets.notification),
-        ),
-        BottomNavigationBarItem(
-          label: "Jobs",
-          icon: Image.asset(AppAssets.jobs),
-        ),
-      ],
-    );
-  }
-
-  AppBar _appBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          InkWell(
-            onTap: () {
-              _sKey.currentState?.openDrawer();
-            },
-            child: CircleAvatar(
-              radius: 21,
-              child: Container(
-                  child: Image.network("https://avatar.iran.liara.run/public")),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  fillColor: AppColors.blue,
-                  filled: true,
-                  contentPadding: EdgeInsets.zero,
-                  constraints: BoxConstraints(maxHeight: 40.0),
-                  prefixIcon: Icon(Icons.search),
-                  suffixIcon: Icon(Icons.qr_code),
-                  hintText: "Search",
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            padding: EdgeInsets.zero,
-            visualDensity: VisualDensity.compact,
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => MessagesListScreen(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.chat_bubble),
-            color: AppColors.darkGrey,
-          ),
-        ],
-      ),
-    );
+  _appBar() {
+    return CustomAppBar.getAppBar(_sKey, context);
   }
 }

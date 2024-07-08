@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:linkedin_clone/common/assets/assets.dart';
 import 'package:linkedin_clone/common/color/colors.dart';
 import 'package:linkedin_clone/modules/home/view/home.screen.dart';
+import 'package:linkedin_clone/modules/home/view/main-page-view.screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,8 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 2), () {
-      Navigator.push(
-          context, CupertinoPageRoute(builder: (context) => HomeScreen()));
+      Navigator.push(context,
+          CupertinoPageRoute(builder: (context) => MainPageViewScreen()));
     });
   }
 
