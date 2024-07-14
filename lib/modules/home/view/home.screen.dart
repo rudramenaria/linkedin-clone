@@ -9,6 +9,8 @@ import 'package:linkedin_clone/modules/home/controller/post.controller.dart';
 import 'package:linkedin_clone/modules/home/model/post.model.dart';
 import 'package:linkedin_clone/modules/messages/view/message-list.screen.dart';
 import 'package:linkedin_clone/modules/my%20networks/view/my-networks.screen.dart';
+import 'package:linkedin_clone/modules/profile/view/my-profile.screen.dart';
+import 'package:linkedin_clone/modules/settings/view/settings-screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -97,12 +99,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Row(
                                 children: [
-                                  Text(
-                                    'View Profile',
-                                    style: AppStyle.primary(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.lightBlue),
+                                  InkWell(
+                                    onTap: () {
+                                      const MyProfileScreen().launch(context);
+                                    },
+                                    child: Text(
+                                      'View Profile',
+                                      style: AppStyle.primary(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.lightBlue),
+                                    ),
                                   ),
                                   10.width,
                                   Container(
@@ -113,12 +120,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.black),
                                   ),
                                   10.width,
-                                  Text(
-                                    'Settings',
-                                    style: AppStyle.primary(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.lightBlue),
+                                  InkWell(
+                                    onTap: () {
+                                      const SettingsScreen().launch(context);
+                                    },
+                                    child: Text(
+                                      'Settings',
+                                      style: AppStyle.primary(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.lightBlue),
+                                    ),
                                   ),
                                 ],
                               ),

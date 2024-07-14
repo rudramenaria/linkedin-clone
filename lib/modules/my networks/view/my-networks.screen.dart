@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:linkedin_clone/common/color/colors.dart';
 import 'package:linkedin_clone/common/style/style.dart';
 import 'package:linkedin_clone/common/widgets/appbar.dart';
+import 'package:linkedin_clone/modules/my%20networks/view/manage-my-network.screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class MyNetworksScreen extends StatefulWidget {
@@ -23,6 +24,9 @@ class _MyNetworksScreenState extends State<MyNetworksScreen> {
       body: Column(
         children: [
           ListTile(
+            onTap: () {
+              const ManageMyNetworkScreen().launch(context);
+            },
             tileColor: Colors.white,
             title: Text(
               'Manage my network',
